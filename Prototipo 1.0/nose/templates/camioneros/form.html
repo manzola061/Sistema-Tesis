@@ -1,0 +1,39 @@
+<form enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    
+    <div class="container mt-5">
+        <div class="card shadow-lg" style="border-radius: 12px;">
+            <div class="card-header bg-primary text-white" style="border-top-left-radius: 12px; border-top-right-radius: 12px;">
+                <h4>Formulario de Información</h4>
+            </div>
+
+            <div class="card-body">
+                {% for campo in formulario %}
+                    <div class="mb-3">
+                        <label for="{{ campo.id_for_label }}" class="form-label">{{ campo.label }}:</label>
+                        
+                        {% if campo.field.widget.input_type == "checkbox" %}
+                            <div>
+                                <input type="radio" name="{{ campo.name }}" id="{{ campo.name }}_yes" value="True" {% if campo.value == True %}checked{% endif %}>
+                                <label for="{{ campo.name }}_yes">Sí</label>
+                                <input type="radio" name="{{ campo.name }}" id="{{ campo.name }}_no" value="False" {% if campo.value == False %}checked{% endif %}>
+                                <label for="{{ campo.name }}_no">No</label>
+                            </div>
+                        {% else %}
+                            <input type="{{ campo.field.widget.input_type }}" class="form-control form-control-lg" name="{{ campo.name }}" id="{{ campo.id_for_label }}" placeholder="{{ campo.label }}" value="{{ campo.value | default:'' }}" />
+                        {% endif %}
+                    </div>
+                    <div class="col-12 help-text">{{ campo.errors }}</div>
+                {% endfor %}
+                
+                <div class="d-flex justify-content-between">
+                    <input type="submit" class="btn btn-success btn-lg" value="Agregar camionero" />
+                    <a href="{% url 'camioneros' %}" class="btn btn-secondary btn-lg" role="button">Cancelar</a>
+                </div>
+            </div>
+
+            <div class="card-footer text-muted" style="border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;">
+            </div>
+        </div>
+    </div>
+</form>

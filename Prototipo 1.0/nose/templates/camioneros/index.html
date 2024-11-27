@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block titulo %} Lista de Camioneros {% endblock %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <div class="card shadow-lg" style="border-radius: 8px;">
+        <div class="card-header bg-primary text-white" style="border-top-left-radius: 8px; border-top-right-radius: 8px;">
+            <h4>Lista de Camioneros</h4>
+            <a class="btn btn-light" href="{% url 'crear' %}" role="button">Agregar nuevo camionero</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Cédula</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Autónomo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for camionero in camioneros %}
+                    <tr>
+                        <td>{{ camionero.cedula }}</td>
+                        <td>{{ camionero.nombre }}</td>
+                        <td>{{ camionero.apellido }}</td>
+                        <td>{{ camionero.autonomo_texto }}</td>
+                        <td>
+                            <a class="btn btn-outline-primary" href="{% url 'editar' camionero.cedula %}" role="button">Editar</a> |
+                            <a class="btn btn-outline-danger" href="{% url 'borrar' camionero.cedula %}" role="button" onclick="return confirm('¿Está seguro de que desea borrar éste camionero?');">Borrar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text-muted" style="border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;">
+        </div>
+    </div>
+</div>
+{% endblock %}
