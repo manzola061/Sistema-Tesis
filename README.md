@@ -3,8 +3,8 @@
 # Recordar activar virtualenv
 
 Prototipo 1.0 herramientas necesarias:
+
 Package   Version
---------- -------
 asgiref   3.8.1  
 Django    5.1.3  
 packaging 24.2   
