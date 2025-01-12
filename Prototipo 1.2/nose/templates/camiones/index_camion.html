@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block titulo %} Lista de Camiones {% endblock %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <div class="card shadow-lg" style="border-radius: 8px;">
+        <div class="card-header bg-primary text-white" style="border-top-left-radius: 8px; border-top-right-radius: 8px;">
+            <h4>Lista de Camiones</h4>
+            <a class="btn btn-light" href="{% url 'crear_camion' %}" role="button">Agregar nuevo camión</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Placa</th>
+                        <th>Modelo</th>
+                        <th>Alto(m)</th>
+                        <th>Ancho(m)</th>
+                        <th>Largo(m)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for camion in camiones %}
+                    <tr>
+                        <td>{{ camion.placa }}</td>
+                        <td>{{ camion.modelo }}</td>
+                        <td>{{ camion.alto }}</td>
+                        <td>{{ camion.ancho }}</td>
+                        <td>{{ camion.largo }}</td>
+                        <td>
+                            <a class="btn btn-outline-primary" href="{% url 'editar_camion' camion.placa %}" role="button">Editar</a> |
+                            <a class="btn btn-outline-danger" href="{% url 'borrar_camion' camion.placa %}" role="button" onclick="return confirm('¿Está seguro de que desea borrar éste camión?');">Borrar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text-muted" style="border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;">
+        </div>
+    </div>
+</div>
+{% endblock %}
