@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block titulo %} Lista de Asignaciones {% endblock %}
+
+{% block contenido %}
+<div class="container mt-5">
+    <div class="card shadow-lg" style="border-radius: 8px;">
+        <div class="card-header bg-primary text-white" style="border-top-left-radius: 8px; border-top-right-radius: 8px;">
+            <h4>Lista de Asignaciones</h4>
+            <a class="btn btn-light" href="{% url 'crear_camionero_camion' %}" role="button">Agregar nueva asignación</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Camionero</th>
+                        <th>Camión</th>
+                        <th>Fecha de Asignación</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for camionero_camion in camioneros_camiones %}
+                    <tr>
+                        <td>{{ camionero_camion.camionero.nombre }} {{ camionero_camion.camionero.apellido }}</td>
+                        <td>{{ camionero_camion.camion.modelo }}</td>
+                        <td>{{ camionero_camion.fecha_formateada }}</td>
+                        <td>{{ camionero_camion.estado_texto }}</td>
+                        <td>
+                            <a class="btn btn-outline-primary" href="{% url 'editar_camionero_camion' camionero_camion.id %}" role="button">Editar</a> |
+                            <a class="btn btn-outline-danger" href="{% url 'borrar_camionero_camion' camionero_camion.id %}" role="button" onclick="return confirm('¿Está seguro de que desea borrar ésta asignación?');">Borrar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text-muted" style="border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;">
+        </div>
+    </div>
+</div>
+{% endblock %}
